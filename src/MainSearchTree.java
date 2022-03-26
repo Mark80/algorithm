@@ -1,4 +1,4 @@
-import datastructure.SearchTree;
+import datastructure.tree.SearchTree;
 
 import java.util.ArrayList;
 import java.util.List;

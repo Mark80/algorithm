@@ -1,4 +1,5 @@
-import datastructure.UnsortedPQ;
+import datastructure.queue.SortedPQ;
+import datastructure.queue.UnsortedPQ;
 
 public class MainQueue {
 
@@ -15,6 +16,32 @@ public class MainQueue {
         System.out.println(queue.minimum());
         queue.deleteMinimum();
         System.out.println(queue);
+        System.out.println(queue.minimum());
+        queue.deleteMinimum();
+        System.out.println(queue.minimum());
+
+        queue.insert(9233);
+        System.out.println(queue);
+//
+//        UnsortedPQ queue2 = new UnsortedPQ();
+//        queue2.insert(2);
+//        queue2.deleteMinimum();
+//        queue2.deleteMinimum();
+
+        SortedPQ sortedPQ = new SortedPQ();
+
+        sortedPQ.insert(2);
+        sortedPQ.insert(3);
+        sortedPQ.insert(7);
+        sortedPQ.insert(4);
+        sortedPQ.insert(6);
+        sortedPQ.insert(1);
+        System.out.println(sortedPQ);
+        System.out.println(sortedPQ.minimum());
+        sortedPQ.deleteMinimum();
+        System.out.println(sortedPQ);
+        sortedPQ.insert(1);
+        System.out.println(sortedPQ);
 
     }
 
