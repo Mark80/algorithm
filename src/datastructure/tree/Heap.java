@@ -15,20 +15,14 @@ public class Heap {
         storage[size++] = value;
 
         int index = size - 1;
-        while (storage[index] < parent(index)) {
-            swap(index, index / 2);
-            index = index / 2;
+        while (storage[index] < parent(index - 1)) {
+            swap(index, (index -1) / 2);
+            index = (index -1) / 2;
         }
 
     }
 
-    private void swap(int index1, int index2) {
-        int tmp = storage[index2];
-        storage[index2] = storage[index1];
-        storage[index1] = tmp;
-    }
-
-    private Integer parent(int index) {
+    private int parent(int index) {
         return storage[index / 2];
     }
 
@@ -41,24 +35,35 @@ public class Heap {
 
     private void moveDown() {
         int current = 0;
-        while (current < size - 1) {
+        while ( (2 * current) + 1 <= size - 1) {
             int min = getMinIndex(current);
             if (storage[current] > storage[min]) {
                 swap(current, min);
                 current = min;
             }
-
         }
     }
 
-    private int getMinIndex(int current) {
-        int min;
-        if (current + 1 == size - 1 || storage[current + 1] < storage[current + 2]) {
-            min = current + 1;
-        } else {
-            min = current + 2;
+    public int getMinIndex(int current) {
+        int min = current;
+        int leftChild = (2 * current) + 1 ;
+        int rightChild = (2 * current) + 2;
+        if (rightChild <= size - 1) {
+            if (storage[leftChild] > storage[rightChild]) {
+                min = rightChild;
+            } else {
+                min = leftChild;
+            }
+        } else if (leftChild < size - 1) {
+            min = leftChild;
         }
         return min;
+    }
+
+    private void swap(int index1, int index2) {
+        int tmp = storage[index2];
+        storage[index2] = storage[index1];
+        storage[index1] = tmp;
     }
 
 
