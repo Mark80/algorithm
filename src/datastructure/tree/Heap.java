@@ -35,8 +35,8 @@ public class Heap {
 
     private void moveDown() {
         int current = 0;
-        while ( (2 * current) + 1 <= size - 1) {
-            int min = getMinIndex(current);
+        while ( getLeftChild(current) < size) {
+            int min = getMinChild(current);
             if (storage[current] > storage[min]) {
                 swap(current, min);
                 current = min;
@@ -44,10 +44,10 @@ public class Heap {
         }
     }
 
-    public int getMinIndex(int current) {
+    public int getMinChild(int current) {
         int min = current;
-        int leftChild = (2 * current) + 1 ;
-        int rightChild = (2 * current) + 2;
+        int leftChild = getLeftChild(current);
+        int rightChild = getRightChild(current);
         if (rightChild <= size - 1) {
             if (storage[leftChild] > storage[rightChild]) {
                 min = rightChild;
@@ -58,6 +58,14 @@ public class Heap {
             min = leftChild;
         }
         return min;
+    }
+
+    private int getRightChild(int current) {
+        return (2 * current) + 2;
+    }
+
+    private int getLeftChild(int current) {
+        return (2 * current) + 1;
     }
 
     private void swap(int index1, int index2) {
