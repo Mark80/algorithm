@@ -17,6 +17,12 @@ public class UnsortedPQ extends QueueBase {
         return storage[indexMinimum];
     }
 
+    public int dequeue(){
+        int min = minimum();
+        deleteMinimum();
+        return min;
+    }
+
     public void deleteMinimum() {
         if(indexLast < 0) throw new IllegalStateException("Delete on empty queue");
         storage[indexMinimum] = storage[indexLast];

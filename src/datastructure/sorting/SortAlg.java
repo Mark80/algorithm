@@ -1,17 +1,19 @@
 package datastructure.sorting;
 
+import datastructure.queue.UnsortedPQ;
+
 import java.util.Arrays;
 
 public class SortAlg {
 
     public static void main(String[] args) {
 
-        int[] arr = new int[]{3, 4, 5, 6, 7, 2, 8, 9, 10, 11};
-
-        int low = 0;
-        int middle = (arr.length - 1) / 2;
-        int high = arr.length - 1;
-        print(merge(arr, low, middle, high));
+//        int[] arr = new int[]{3, 4, 5, 6, 7, 2, 8, 9, 10, 11};
+//
+//        int low = 0;
+//        int middle = (arr.length - 1) / 2;
+//        int high = arr.length - 1;
+//        print(merge(arr, low, middle, high));
 
         int[] arr2 = new int[]{2, 6, 14, 1, 2, 3, 63, 2, 7, 74, 8, 5, 3, 78, 12};
         print(arr2);
@@ -53,46 +55,34 @@ public class SortAlg {
     }
 
     static int[] merge(int[] arr, int low, int middle, int high) {
-        int[] a = new int[middle - low + 1];
-        int[] b = new int[high - middle];
-        fillArray(a, arr, low, middle);
-        fillArray(b, arr, middle + 1, high);
+        UnsortedPQ lows = new UnsortedPQ();
+        UnsortedPQ highs = new UnsortedPQ();
 
-        int index_a = 0;
-        int index_b = 0;
-        int new_index = low;
+        for (int i = low; i <= middle; i++) { lows.insert(arr[i]);}
+        for (int i = middle + 1 ; i <= high; i++) { highs.insert(arr[i]);}
 
-        while (index_a < a.length && index_b < b.length) {
-            if (a[index_a] < b[index_b]) {
-                arr[new_index] = a[index_a];
-                index_a++;
+        int newIndex = low;
+
+        while (!lows.isEmpty() && !highs.isEmpty()) {
+            if (lows.minimum() < highs.minimum()) {
+                arr[newIndex] = lows.dequeue();
             } else {
-                arr[new_index] = b[index_b];
-                index_b++;
+                arr[newIndex] = highs.dequeue();
             }
-            new_index++;
+            newIndex++;
         }
 
-        new_index = fillTheRest(index_a, a, arr, new_index);
-        fillTheRest(index_b, b, arr, new_index);
+        while(!lows.isEmpty()){
+            arr[newIndex] = lows.dequeue();
+            newIndex++;
+        }
+
+        while(!highs.isEmpty()){
+            arr[newIndex] = highs.dequeue();
+            newIndex++;
+        }
 
         return arr;
-
-    }
-
-    static void fillArray(int[] a, int[] input, int low, int high) {
-        for (int i = 0; i <= high - low; i++) {
-            a[i] = input[low + i];
-        }
-    }
-
-    private static int fillTheRest(int index_a, int[] a, int[] r, int new_index) {
-        for (int i = index_a; i < a.length; i++) {
-            r[new_index] = a[i];
-            new_index++;
-        }
-
-        return new_index;
     }
 
 }

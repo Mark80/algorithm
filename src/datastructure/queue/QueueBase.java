@@ -28,4 +28,8 @@ public abstract class QueueBase {
                 "storage=" + arr +
                 '}';
     }
+
+    public boolean isEmpty(){
+        return indexLast < 0;
+    }
 }

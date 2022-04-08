@@ -43,6 +43,10 @@ public class MainQueue {
         sortedPQ.insert(1);
         System.out.println(sortedPQ);
 
+        UnsortedPQ queue2 = new UnsortedPQ();
+        queue2.insert(5);
+        queue2.deleteMinimum();
+        System.out.println(queue2.isEmpty());
     }
 
 }
