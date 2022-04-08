@@ -12,8 +12,6 @@ public class MainSearchTree {
         return toFill;
     }
 
-    //static  <T extends Comparable<T>> List<T> sort(List<T> toSort)
-
     private static <T extends Comparable<T>> void fillList(List<T> toFill, SearchTree<T> tree) {
         if (Objects.isNull(tree) || Objects.isNull(tree.value)) return;
         if (tree.left == null) {

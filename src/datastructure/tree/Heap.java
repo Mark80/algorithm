@@ -74,6 +74,15 @@ public class Heap {
         storage[index1] = tmp;
     }
 
+    public int heapCompare(int x, int count, int i){
+        if(count <= 0 || i > size - 1) return  count;
+        if(storage[i] < x) {
+            count = heapCompare(x, count - 1, getLeftChild(i));
+            count = heapCompare(x, count, getRightChild(i));
+        }
+        return  count;
+    }
+
 
     @Override
     public String toString() {

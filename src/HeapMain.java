@@ -15,10 +15,13 @@ public class HeapMain {
         heap.insert(9);
 
         System.out.println(heap);
+        System.out.println(heap.heapCompare(4, 8,0));
 
         heap.deleteMinimum();
         //heap.deleteMinimum();
         System.out.println(heap);
+
+
     }
 
 }
