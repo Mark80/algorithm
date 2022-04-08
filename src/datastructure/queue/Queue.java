@@ -1,6 +1,6 @@
 package datastructure.queue;
 
-public abstract class QueueBase {
+public abstract class Queue {
 
      int indexMinimum = 0;
      int indexLast = -1;
@@ -31,5 +31,11 @@ public abstract class QueueBase {
 
     public boolean isEmpty(){
         return indexLast < 0;
+    }
+
+    public int dequeue(){
+        int min = minimum();
+        deleteMinimum();
+        return min;
     }
 }

@@ -1,6 +1,6 @@
 package datastructure.queue;
 
-public class UnsortedPQ extends QueueBase {
+public class UnsortedPQ extends Queue {
 
     public void insert(int value) {
         indexLast++;
@@ -15,12 +15,6 @@ public class UnsortedPQ extends QueueBase {
 
     public int minimum() {
         return storage[indexMinimum];
-    }
-
-    public int dequeue(){
-        int min = minimum();
-        deleteMinimum();
-        return min;
     }
 
     public void deleteMinimum() {

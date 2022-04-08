@@ -1,6 +1,6 @@
 package datastructure.queue;
 
-public class SortedPQ extends QueueBase{
+public class SortedPQ extends Queue {
 
 
     public void insert(int value) {

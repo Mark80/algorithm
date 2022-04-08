@@ -7,14 +7,6 @@ import java.util.Arrays;
 public class SortAlg {
 
     public static void main(String[] args) {
-
-//        int[] arr = new int[]{3, 4, 5, 6, 7, 2, 8, 9, 10, 11};
-//
-//        int low = 0;
-//        int middle = (arr.length - 1) / 2;
-//        int high = arr.length - 1;
-//        print(merge(arr, low, middle, high));
-
         int[] arr2 = new int[]{2, 6, 14, 1, 2, 3, 63, 2, 7, 74, 8, 5, 3, 78, 12};
         print(arr2);
         mergeSort(arr2, 0, arr2.length - 1);
@@ -72,15 +64,8 @@ public class SortAlg {
             newIndex++;
         }
 
-        while(!lows.isEmpty()){
-            arr[newIndex] = lows.dequeue();
-            newIndex++;
-        }
-
-        while(!highs.isEmpty()){
-            arr[newIndex] = highs.dequeue();
-            newIndex++;
-        }
+        while(!lows.isEmpty()){arr[newIndex++] = lows.dequeue();}
+        while(!highs.isEmpty()){arr[newIndex++] = highs.dequeue();}
 
         return arr;
     }
