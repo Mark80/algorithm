@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class SortAlg {
 
-
     public static void main(String[] args) {
 
         int[] arr = new int[]{3, 4, 5, 6, 7, 2, 8, 9, 10, 11};
@@ -14,12 +13,10 @@ public class SortAlg {
         int high = arr.length - 1;
         print(merge(arr, low, middle, high));
 
-        int[] arr2 = new int[]{2, 6, 4, 1, 2, 8, 5, 3, 78, 12};
+        int[] arr2 = new int[]{2, 6, 14, 1, 2, 3, 63, 2, 7, 74, 8, 5, 3, 78, 12};
         print(arr2);
         mergeSort(arr2, 0, arr2.length - 1);
         print(arr2);
-
-
     }
 
     static void print(int[] arr) {
@@ -45,12 +42,6 @@ public class SortAlg {
         storage[index1] = tmp;
     }
 
-
-    static void fillArray(int[] a, int[] input, int low, int high) {
-        for (int i = 0; i <= high - low; i++) {
-            a[i] = input[low + i];
-        }
-    }
 
     static void mergeSort(int[] arr, int low, int high) {
         if (low < high) {
@@ -87,6 +78,12 @@ public class SortAlg {
 
         return arr;
 
+    }
+
+    static void fillArray(int[] a, int[] input, int low, int high) {
+        for (int i = 0; i <= high - low; i++) {
+            a[i] = input[low + i];
+        }
     }
 
     private static int fillTheRest(int index_a, int[] a, int[] r, int new_index) {
