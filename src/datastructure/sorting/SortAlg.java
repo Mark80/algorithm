@@ -11,6 +11,9 @@ public class SortAlg {
         print(arr2);
         mergeSort(arr2, 0, arr2.length - 1);
         print(arr2);
+
+        int[] arr = new int[]{2, 6, 14, 1, 5,3,6,4};
+        print(quicksort(arr, 0 , 7));
     }
 
     static void print(int[] arr) {
@@ -68,6 +71,32 @@ public class SortAlg {
         while(!highs.isEmpty()){arr[newIndex++] = highs.dequeue();}
 
         return arr;
+    }
+
+    static int[] quicksort(int[] arr, int low, int high){
+        if(high - low > 0) {
+            int pivot = partition(arr, low, high);
+            quicksort(arr, low, pivot -1);
+            quicksort(arr, pivot + 1, high);
+        }
+        return arr;
+    }
+
+
+    static int partition(int[] arr, int low, int high) {
+        int finalPivotIndex = low;
+
+        for (int i = low; i < high; i++) {
+            if(arr[high] > arr[i]){
+                swap(arr, finalPivotIndex, i);
+                finalPivotIndex++;
+            }
+        }
+
+        swap(arr, finalPivotIndex, high);
+
+        return finalPivotIndex;
+
     }
 
 }
