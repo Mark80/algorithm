@@ -93,8 +93,31 @@ public class MainSearchTree {
         System.out.println(sort(new ArrayList<Integer>()));
 
 
+        int[] arr = new int[]{1,2,3,3,4,5,5,5,6,6,7,7};
+
+        System.out.println(highBoundOccurrence(arr,6 ));
+
+
     }
 
+    static int highBoundOccurrence(int[] input, int elem) {
+
+        if (input.length == 0) return -1;
+
+        int min = 0;
+        int max = input.length - 1;
+
+        while (min <= max) {
+            int middle = (max + min) >>> 1;
+            int pivot = input[middle];
+            if (pivot > elem) {
+                max = middle - 1;
+            } else {
+                min = middle  + 1;
+            }
+        }
+        return min;
+    }
 
     static int binarySearch(int[] input, int elem) {
 

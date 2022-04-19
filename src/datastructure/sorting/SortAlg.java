@@ -14,6 +14,24 @@ public class SortAlg {
 
         int[] arr = new int[]{2, 6, 14, 1, 5,3,6,4};
         print(quicksort(arr, 0 , 7));
+
+
+        int[] arr_med = new int[]{2, 6, 14, 1, 5,3,4,11,45,75,21};
+        System.out.println(median(arr_med, 0, 7));
+        print(arr_med);
+    }
+
+    static int median(int[] arr, int low, int high) {
+        int pivot = partition(arr, low, high);
+        int median;
+
+        if(pivot - low > pivot - high ){
+            median = partition(arr, low, pivot);
+        }else {
+            median = partition(arr, pivot, high);
+        }
+        return median;
+
     }
 
     static void print(int[] arr) {
