@@ -24,4 +24,11 @@ public class Node {
     public int hashCode() {
         return Objects.hash(value, name);
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
