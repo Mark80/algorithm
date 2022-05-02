@@ -59,6 +59,37 @@ public class Graph {
         return nodes != null && nodes.contains(end);
     }
 
+    public void deepFirst(Node start) {
+        Map<Node, Status> status = new HashMap<>();
+        for (Node node : adjacencyMap.keySet()) {
+            status.put(node, Status.UNDISCOVERED);
+        }
+
+        for (Node node : adjacencyMap.keySet()) {
+            parents.put(node, null);
+        }
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(start);
+        status.put(start, Status.DISCOVERED);
+
+
+        while(!stack.isEmpty()){
+            Node currentNode = stack.pop();
+            processFirstVertex(currentNode);
+            status.put(start, Status.PROCESSED);
+            List<Node> adjacency = new LinkedList<>(getNodes(currentNode));
+
+            for(Node neighbor: adjacency) {
+                if(status.get(neighbor) == Status.UNDISCOVERED){
+                    parents.put(neighbor, currentNode);
+                    status.put(neighbor, Status.DISCOVERED);
+                    stack.push(neighbor);
+                }
+            }
+        }
+    }
+
     public void breadthFirst(Node start) {
         Map<Node, Status> status = new HashMap<>();
         for (Node node : adjacencyMap.keySet()) {
@@ -124,7 +155,6 @@ public class Graph {
         path.add(parent);
         Collections.reverse(path);
         return path;
-
     }
 
 
