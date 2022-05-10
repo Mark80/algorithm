@@ -8,19 +8,31 @@ enum Status {
     UNDISCOVERED
 }
 
+enum EdgeClass{
+    TREE,
+    BACK,
+    NONE
+}
+
 public class Graph {
 
     private final Map<Node, LinkedList<Node>> adjacencyMap = new HashMap<>();
     Map<Node, Node> parents = new HashMap<>();
+    Map<Node, Status> status = new HashMap<>();
+
+
+    private String REPR = "";
+    private boolean isDirect = false;
 
 
     public void insertEdge(Node x, Node y, boolean direct) {
+        isDirect = direct;
 
         if (!adjacencyMap.containsKey(x)) {
-            adjacencyMap.put(x, null);
+            adjacencyMap.put(x, new LinkedList<>());
         }
         if (!adjacencyMap.containsKey(y)) {
-            adjacencyMap.put(y, null);
+            adjacencyMap.put(y, new LinkedList<>());
         }
 
         LinkedList<Node> edgeNodes = getNodes(x);
@@ -60,14 +72,8 @@ public class Graph {
     }
 
     public void deepFirst(Node start) {
-        Map<Node, Status> status = new HashMap<>();
-        for (Node node : adjacencyMap.keySet()) {
-            status.put(node, Status.UNDISCOVERED);
-        }
-
-        for (Node node : adjacencyMap.keySet()) {
-            parents.put(node, null);
-        }
+        status = new HashMap<>();
+        initGraph();
 
         Stack<Node> stack = new Stack<>();
         stack.push(start);
@@ -91,15 +97,6 @@ public class Graph {
     }
 
     public void breadthFirst(Node start) {
-        Map<Node, Status> status = new HashMap<>();
-        for (Node node : adjacencyMap.keySet()) {
-            status.put(node, Status.UNDISCOVERED);
-        }
-
-        for (Node node : adjacencyMap.keySet()) {
-            parents.put(node, null);
-        }
-
         Queue<Node> queue = new LinkedList<>();
         queue.add(start);
         status.put(start, Status.DISCOVERED);
@@ -108,11 +105,10 @@ public class Graph {
             Node currentNode = queue.poll();
             processFirstVertex(currentNode);
             Queue<Node> adjacency = new LinkedList<>(getNodes(currentNode));
-            status.put(currentNode, Status.PROCESSED);
 
             while (!adjacency.isEmpty()) {
                 Node neighbor = adjacency.poll();
-                if (status.get(neighbor) == Status.DISCOVERED) {
+                if (status.get(neighbor) == Status.DISCOVERED || this.isDirect) {
                     processEdge(currentNode, neighbor);
                 }
                 if (status.get(neighbor) == Status.UNDISCOVERED) {
@@ -121,8 +117,31 @@ public class Graph {
                     parents.put(neighbor, currentNode);
                 }
             }
+            status.put(currentNode, Status.PROCESSED);
             processLastVertex(currentNode);
         }
+    }
+
+    public void initGraph() {
+        for (Node node : adjacencyMap.keySet()) {
+            status.put(node, Status.UNDISCOVERED);
+        }
+
+        for (Node node : adjacencyMap.keySet()) {
+            parents.put(node, null);
+        }
+    }
+
+    public int connectedComponent(){
+        int count = 1;
+        for (Node node : adjacencyMap.keySet()) {
+            if(status.get(node).equals(Status.UNDISCOVERED)){
+                System.out.println(node);
+                breadthFirst(node);
+                count = count + connectedComponent();
+            }
+        }
+        return count;
     }
 
     public LinkedList<Node> getNodes(Node start) {
@@ -135,7 +154,32 @@ public class Graph {
     }
 
     private void processEdge(Node a, Node b) {
+         Node parent = parents.get(a);
 
+         if(!b.equals(parent)){
+             List<Node> path  = findCurrentPath(b,a);
+             if(path !=null){
+                 System.out.println(path);
+             }else {
+                 //System.out.println("Cicle found: " + a + " " + b);
+             }
+         }
+    }
+
+    public List<Node> findCurrentPath(Node start, Node end) {
+        List<Node> path = new LinkedList<>();
+        path.add(end);
+
+        Node parent = parents.get(end);
+        while (parent!= null && !parent.equals(start)) {
+            path.add(parent);
+            parent = parents.get(parent);
+        }
+        if(parent == null)
+            return null;
+        path.add(parent);
+        Collections.reverse(path);
+        return path;
     }
 
     private void processLastVertex(Node node) {
@@ -148,13 +192,23 @@ public class Graph {
         path.add(end);
 
         Node parent = parents.get(end);
-        while (!parent.equals(start)) {
+        while (parent!= null && !parent.equals(start)) {
             path.add(parent);
             parent = parents.get(parent);
         }
+        if(parent == null)
+            return null;
         path.add(parent);
         Collections.reverse(path);
         return path;
+    }
+
+
+    public String deepFirstTree(){
+
+
+        return REPR;
+
     }
 
 
